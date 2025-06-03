@@ -30,6 +30,9 @@
             text-align: center;
             margin-bottom: 40px;
             color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .header h1 {
@@ -52,13 +55,17 @@
 
         .stat-card {
             background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 25px;
+            border-radius: 10px;
+            padding: 15px;
             text-align: center;
             box-shadow: 0 8px 32px rgba(0,0,0,0.1);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255,255,255,0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .stat-card:hover {
@@ -68,7 +75,7 @@
 
         .stat-card i {
             font-size: 2.5rem;
-            margin-bottom: 15px;
+            margin-bottom: 5px;
         }
 
         .stat-card h3 {
@@ -83,7 +90,7 @@
 
         .main-content {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1fr;
             gap: 30px;
             align-items: start;
         }
@@ -294,14 +301,185 @@
             .header h1 {
                 font-size: 2rem;
             }
+            .add-task-btn span{
+                display: none;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .stats-grid p{
+                display: none;
+            }
+        }   
+
+        /* Styles pour le modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 5% auto;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: #e53e3e;
+        }
+
+        .add-task-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .add-task-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .add-task-btn i {
+            font-size: 1.2rem;
+        }
+
+        /* Styles pour le modal de confirmation */
+        .confirm-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            backdrop-filter: blur(5px);
+        }
+
+        .confirm-modal-content {
+            position: relative;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 15% auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 450px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            text-align: center;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        .confirm-modal h3 {
+            color: #2d3748;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .confirm-modal p {
+            color: #4a5568;
+            margin-bottom: 25px;
+        }
+
+        .confirm-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-cancel {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .btn-cancel:hover {
+            background: #cbd5e0;
+        }
+
+        .btn-confirm {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            background: #c53030;
+        }
+
+        .btn-modal {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-modal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-tasks"></i> Task Manager Pro</h1>
-            <p>Gérez vos tâches avec style et efficacité</p>
+            <div class="header-text">
+                <h1><i class="fas fa-tasks"></i> Task Manager</h1>
+                <p>Gérez vos tâches avec style et efficacité</p>
+            </div>
+            <button class="add-task-btn" onclick="taskManager.openModal()">
+                <i class="fas fa-plus"></i>
+                <span>Nouvelle tâche</span>
+            </button>
         </div>
 
         <div class="stats-grid" id="statsGrid">
@@ -328,31 +506,6 @@
         </div>
 
         <div class="main-content">
-            <div class="task-form">
-                <h2><i class="fas fa-plus-circle"></i> Nouvelle tâche</h2>
-                <form id="taskForm">
-                    <div class="form-group">
-                        <label for="title">Titre *</label>
-                        <input type="text" id="title" name="title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea id="description" name="description" rows="3"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="priority">Priorité</label>
-                        <select id="priority" name="priority">
-                            <option value="low">Faible</option>
-                            <option value="medium" selected>Moyenne</option>
-                            <option value="high">Élevée</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn">
-                        <i class="fas fa-plus"></i> Ajouter la tâche
-                    </button>
-                </form>
-            </div>
-
             <div class="tasks-container">
                 <h2><i class="fas fa-tasks"></i> Mes tâches</h2>
                 <div id="tasksList">
@@ -365,10 +518,59 @@
         </div>
     </div>
 
+    <!-- Modal pour l'ajout de tâche -->
+    <div id="taskModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="taskManager.closeModal()">&times;</span>
+            <h2><i class="fas fa-plus-circle"></i> Nouvelle tâche</h2>
+            <br>
+            <form id="taskForm">
+                <div class="form-group">
+                    <label for="title">Titre *</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea id="description" name="description" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="priority">Priorité</label>
+                    <select id="priority" name="priority">
+                        <option value="low">Faible</option>
+                        <option value="medium" selected>Moyenne</option>
+                        <option value="high">Élevée</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">
+                    <i class="fas fa-plus"></i> Ajouter la tâche
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de confirmation de suppression -->
+    <div id="confirmModal" class="confirm-modal">
+        <div class="confirm-modal-content">
+            <h3><i class="fas fa-exclamation-triangle" style="color: #e53e3e;"></i> Confirmer la suppression</h3>
+            <p>Êtes-vous sûr de vouloir supprimer cette tâche ? <br> Cette action est irréversible.</p>
+            <div class="confirm-actions">
+                <button class="btn-modal btn-cancel" onclick="taskManager.closeConfirmModal()">
+                    <i class="fas fa-times"></i> Annuler
+                </button>
+                <button class="btn-modal btn-confirm" id="confirmDeleteBtn">
+                    <i class="fas fa-trash"></i> Supprimer
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
         class TaskManager {
             constructor() {
                 this.init();
+                this.modal = document.getElementById('taskModal');
+                this.confirmModal = document.getElementById('confirmModal');
+                this.taskToDelete = null;
             }
 
             async init() {
@@ -381,6 +583,34 @@
                 document.getElementById('taskForm').addEventListener('submit', (e) => {
                     e.preventDefault();
                     this.createTask();
+                });
+
+                // Fermer le modal en cliquant en dehors
+                window.addEventListener('click', (e) => {
+                    if (e.target === this.modal) {
+                        this.closeModal();
+                    }
+                });
+
+                // Fermer le modal avec la touche Escape
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && this.modal.style.display === 'block') {
+                        this.closeModal();
+                    }
+                });
+
+                // Gestion de la confirmation de suppression
+                document.getElementById('confirmDeleteBtn').addEventListener('click', () => {
+                    if (this.taskToDelete) {
+                        this.confirmDeleteTask(this.taskToDelete);
+                    }
+                });
+
+                // Fermer le modal de confirmation en cliquant en dehors
+                window.addEventListener('click', (e) => {
+                    if (e.target === this.confirmModal) {
+                        this.closeConfirmModal();
+                    }
                 });
             }
 
@@ -437,7 +667,7 @@
                                 <button class="btn-small btn-complete" onclick="taskManager.toggleTask(${task.id}, ${!task.completed})">
                                     <i class="fas fa-${task.completed ? 'undo' : 'check'}"></i>
                                 </button>
-                                <button class="btn-small btn-delete" onclick="taskManager.deleteTask(${task.id})">
+                                <button class="btn-small btn-delete" onclick="taskManager.openConfirmModal(${task.id})">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </div>
@@ -457,6 +687,16 @@
                     'high': 'Élevée'
                 };
                 return priorities[priority] || priority;
+            }
+
+            openModal() {
+                this.modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
+
+            closeModal() {
+                this.modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
 
             async createTask() {
@@ -480,6 +720,7 @@
 
                     if (response.ok) {
                         form.reset();
+                        this.closeModal();
                         await this.loadTasks();
                         await this.loadStats();
                     }
@@ -508,17 +749,26 @@
                 }
             }
 
-            async deleteTask(taskId) {
-                if (!confirm('Êtes-vous sûr de vouloir supprimer cette tâche?')) {
-                    return;
-                }
+            openConfirmModal(taskId) {
+                this.taskToDelete = taskId;
+                this.confirmModal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            }
 
+            closeConfirmModal() {
+                this.confirmModal.style.display = 'none';
+                this.taskToDelete = null;
+                document.body.style.overflow = 'auto';
+            }
+
+            async confirmDeleteTask(taskId) {
                 try {
                     const response = await fetch(`/api/tasks/${taskId}`, {
                         method: 'DELETE'
                     });
 
                     if (response.ok) {
+                        this.closeConfirmModal();
                         await this.loadTasks();
                         await this.loadStats();
                     }
